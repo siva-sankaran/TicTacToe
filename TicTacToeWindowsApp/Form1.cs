@@ -1,3 +1,5 @@
+using TicTacToeWindowsApp;
+
 namespace SnakeAndLadder
 {
     enum Players
@@ -6,7 +8,7 @@ namespace SnakeAndLadder
     }
     public partial class Form1 : Form
     {
-        bool?[,] board = new bool?[3,3];
+        GameBoard board = new GameBoard();
         Players currentPlayer = Players.Player1;
         int move;
         public Form1()
@@ -22,10 +24,14 @@ namespace SnakeAndLadder
             TextBox textBox = (TextBox)sender;
             int row = textBox.Name[7] - '0';
             int col = textBox.Name[8] - '0';
-            board[row, col] = e.KeyChar == 'x' ? true : e.KeyChar == 'o' ? false : null;
+            if (e.KeyChar == 'x')
+                board.SetX(row, col);
+            else if (e.KeyChar == 'o')
+                board.SetO(row, col);
+
             e.Handled = !IsValidCharacter(e.KeyChar);
             textBox.Enabled = !IsValidCharacter(e.KeyChar);
-            if (IsWin(board)) 
+            if (board.IsWin()) 
             {
                 gameStatusLbl.Text = $"{currentPlayer} is win!!";
                 flowLayoutPanel1.Enabled = false;
@@ -48,56 +54,6 @@ namespace SnakeAndLadder
         {
             currentPlayer = (Players)(((int)currentPlayer + 1) % 2);
         }
-        private bool IsWin(bool?[,] board)
-        {
-            bool IsFirstRowMatched = (board[0, 0] == board[0, 1] && board[0, 1] == board[0, 2])
-                && board[0, 0] != null
-                && board[0, 1] != null
-                && board[0, 2] != null;
-
-            bool IsSecondRowMatched = (board[1, 0] == board[1, 1] && board[1, 1] == board[1, 2])
-                && board[1, 0] != null
-                && board[1, 1] != null
-                && board[1, 2] != null;
-
-            bool IsThirdRowMatched = (board[2, 0] == board[2, 1] && board[2, 1] == board[2, 2])
-                && board[2, 0] != null
-                && board[2, 1] != null
-                && board[2, 2] != null;
-
-            bool IsFirstColumnMatched = (board[0, 0] == board[1, 0] && board[1, 0] == board[2, 0])
-                && board[0, 0] != null
-                && board[1, 0] != null
-                && board[2, 0] != null;
-
-            bool IsSecondColumnMatched = (board[0, 1] == board[1, 1] && board[1, 1] == board[2, 1])
-                && board[0, 1] != null
-                && board[1, 1] != null
-                && board[2, 1] != null;
-
-            bool IsThirdColumnMatched = (board[0, 2] == board[1, 2] && board[1, 2] == board[2, 2])
-                && board[0, 2] != null
-                && board[1, 2] != null
-                && board[2, 2] != null;
-
-            bool IsTopLeftStartDiagonalMatched = (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2])
-                && board[0, 0] != null
-                && board[1, 1] != null
-                && board[2, 2] != null;
-
-            bool IsBottomLeftStartDiagonalMatched = (board[2, 0] == board[1, 1] && board[1, 1] == board[0, 2])
-                && board[2, 0] != null
-                && board[1, 1] != null
-                && board[0, 2] != null;
-
-            return IsFirstRowMatched ||
-                IsSecondRowMatched ||
-                IsThirdRowMatched ||
-                IsFirstColumnMatched ||
-                IsSecondColumnMatched ||
-                IsThirdColumnMatched ||
-                IsTopLeftStartDiagonalMatched ||
-                IsBottomLeftStartDiagonalMatched;
-        }
+        
     }
 }
