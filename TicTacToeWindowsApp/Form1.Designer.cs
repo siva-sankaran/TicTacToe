@@ -178,18 +178,18 @@
             gameStatusLbl.AutoSize = true;
             gameStatusLbl.Location = new Point(356, 301);
             gameStatusLbl.Name = "gameStatusLbl";
-            gameStatusLbl.Size = new Size(65, 28);
+            gameStatusLbl.Size = new Size(248, 28);
             gameStatusLbl.TabIndex = 1;
-            gameStatusLbl.Text = "label1";
+            gameStatusLbl.Text = "Label showing Game status";
             // 
             // currentPlayerLbl
             // 
             currentPlayerLbl.AutoSize = true;
             currentPlayerLbl.Location = new Point(131, 31);
             currentPlayerLbl.Name = "currentPlayerLbl";
-            currentPlayerLbl.Size = new Size(65, 28);
+            currentPlayerLbl.Size = new Size(261, 28);
             currentPlayerLbl.TabIndex = 2;
-            currentPlayerLbl.Text = "label1";
+            currentPlayerLbl.Text = "Label showing current Player";
             // 
             // Form1
             // 
